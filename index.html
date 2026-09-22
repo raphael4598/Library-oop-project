@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ระบบจัดการห้องสมุด</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+
+  <header class="ledger-header">
+    <div>
+      <h1>ระบบจัดการห้องสมุด</h1>
+      <div class="subtitle">Library Management System — Mini Project OOP</div>
+    </div>
+    <div class="stat-strip">
+      <div class="stat"><span class="num" id="stat-books">0</span><span class="lbl">หนังสือ</span></div>
+      <div class="stat"><span class="num" id="stat-members">0</span><span class="lbl">สมาชิก</span></div>
+      <div class="stat"><span class="num" id="stat-loans">0</span><span class="lbl">กำลังยืม</span></div>
+      <div class="stat"><span class="num" id="stat-overdue">0</span><span class="lbl">เกินกำหนด</span></div>
+    </div>
+  </header>
+
+  <nav class="tab-row">
+    <button class="tab-btn active" data-target="panel-books">หนังสือ</button>
+    <button class="tab-btn" data-target="panel-members">สมาชิก</button>
+    <button class="tab-btn" data-target="panel-loans">ยืม–คืน</button>
+  </nav>
+
+  <div class="panel-body">
+
+    <!-- ===== หนังสือ ===== -->
+    <section class="panel active" id="panel-books">
+      <h2>เพิ่มหนังสือ</h2>
+      <p class="hint">ติ๊ก “เป็นอีบุ๊ก” เพื่อเพิ่มเป็นคลาส EBook ซึ่งยืมได้ไม่จำกัดจำนวนคนพร้อมกัน</p>
+      <form id="form-add-book" class="form-grid">
+        <div class="field">
+          <label for="f-isbn">ISBN</label>
+          <input type="text" id="f-isbn" required />
+        </div>
+        <div class="field">
+          <label for="f-title">ชื่อหนังสือ</label>
+          <input type="text" id="f-title" required />
+        </div>
+        <div class="field">
+          <label for="f-author">ผู้แต่ง</label>
+          <input type="text" id="f-author" required />
+        </div>
+        <div class="field">
+          <label for="f-copies">จำนวนเล่ม</label>
+          <input type="number" id="f-copies" min="1" value="1" />
+        </div>
+        <div class="field checkbox">
+          <input type="checkbox" id="f-is-ebook" />
+          <label for="f-is-ebook">เป็นอีบุ๊ก</label>
+        </div>
+        <button type="submit" class="btn">เพิ่มหนังสือ</button>
+      </form>
+
+      <h2>รายการหนังสือ</h2>
+      <div class="search-row">
+        <input type="text" id="book-search" placeholder="ค้นหาจากชื่อ / ผู้แต่ง / ISBN" />
+      </div>
+      <ul class="card-list" id="book-list"></ul>
+    </section>
+
+    <!-- ===== สมาชิก ===== -->
+    <section class="panel" id="panel-members">
+      <h2>เพิ่มสมาชิก</h2>
+      <form id="form-add-member" class="form-grid">
+        <div class="field">
+          <label for="m-name">ชื่อ-นามสกุล</label>
+          <input type="text" id="m-name" required />
+        </div>
+        <div class="field">
+          <label for="m-id">รหัสสมาชิก</label>
+          <input type="text" id="m-id" required />
+        </div>
+        <div class="field">
+          <label for="m-max">ยืมได้สูงสุด (เล่ม)</label>
+          <input type="number" id="m-max" min="1" value="3" />
+        </div>
+        <button type="submit" class="btn">เพิ่มสมาชิก</button>
+      </form>
+
+      <h2>รายชื่อสมาชิก</h2>
+      <p class="hint">แต่ละแถวเรียกเมธอด <code>describe()</code> เดียวกัน แต่ได้ข้อความต่างกันตามชนิดของอ็อบเจกต์จริง (Member / Librarian) — ตัวอย่าง Polymorphism</p>
+      <ul class="card-list" id="member-list"></ul>
+    </section>
+
+    <!-- ===== ยืม-คืน ===== -->
+    <section class="panel" id="panel-loans">
+      <h2>ยืมหนังสือ</h2>
+      <form id="form-borrow" class="form-grid">
+        <div class="field">
+          <label for="select-member">สมาชิก</label>
+          <select id="select-member"></select>
+        </div>
+        <div class="field">
+          <label for="select-book">หนังสือ</label>
+          <select id="select-book"></select>
+        </div>
+        <button type="submit" class="btn">ยืม</button>
+      </form>
+      <div class="form-msg" id="borrow-msg"></div>
+
+      <h2 style="margin-top:22px">รายการที่ยืมอยู่</h2>
+      <ul class="card-list" id="loan-list"></ul>
+    </section>
+
+  </div>
+
+  <footer class="note">ข้อมูลหนังสือจะถูกบันทึกไว้ในเบราว์เซอร์นี้อัตโนมัติ (localStorage)</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
